@@ -1,3 +1,21 @@
+
+# Publish fork
+
+## Update packages
+dotnet list package --outdated  
+dotnet add package MediatR  
+
+## Build image locally
+docker build -t kubernetes-reflector:8.0.0 -f src/ES.Kubernetes.Reflector/Dockerfile src/  
+docker tag kubernetes-reflector:8.0.0 ghcr.io/mediamonks/kubernetes-reflector:8.0.0
+
+## Auth and push to ghcr.io
+https://github.com/settings/tokens/new  
+export CR_PAT=ghp_example_pat ; echo $CR_PAT | docker login ghcr.io -u exampleuser --password-stdin  
+docker push ghcr.io/mediamonks/kubernetes-reflector:8.0.0
+
+---
+
 # Reflector
 Reflector is a Kubernetes addon designed to monitor changes to resources (secrets and configmaps) and reflect changes to mirror resources in the same or other namespaces.
 
