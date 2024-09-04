@@ -1,13 +1,13 @@
 version: 2
 updates:
 - package-ecosystem: nuget
-  directory: "/"
+  directory: "/src"
   schedule:
     interval: weekly
   open-pull-requests-limit: 10
 
 - package-ecosystem: github-actions
-  directory: "/"
+  directory: "/src"
   schedule:
     interval: weekly
   groups:
