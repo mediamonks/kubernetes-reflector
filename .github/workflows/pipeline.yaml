@@ -20,7 +20,7 @@ jobs:
     name: CI
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: artifacts - prepare directories
         run: |
@@ -37,13 +37,13 @@ jobs:
         run: helm template --namespace kube-system reflector .artifacts/helm/reflector-${{env.version}}.tgz > .artifacts/kubectl/reflector-${{env.version}}.yaml
 
       - name: "artifacts - upload - helm chart"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: helm
           path: .artifacts/helm
 
       - name: "artifacts - upload - kubectl manifests"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: kubectl
           path: .artifacts/kubectl
@@ -94,13 +94,13 @@ jobs:
           password: ${{ secrets.ES_DOCKERHUB_PAT }}
 
       - name: artifacts - download - helm chart
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: helm
           path: .artifacts/helm
 
       - name: artifacts - download - kubectl manifests
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: kubectl
           path: .artifacts/kubectl
@@ -124,7 +124,7 @@ jobs:
           docker push ${{env.imageRepository}}:${{env.version}}-arm64v8
 
       - name: github - checkout - helm-charts
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: emberstack/helm-charts
           token: ${{ secrets.ES_GITHUB_PAT }}
